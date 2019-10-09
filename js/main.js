@@ -2,6 +2,10 @@
 
 var PIN_HEIGHT = 70;
 var PIN_WIDTH = 50;
+var MAIN_PIN_HEIGHT = 65;
+var MAIN_PIN_WIDTH = 65;
+var ACTIVE_MAIN_PIN_HEIGHT = 75;
+var ACTIVE_MAIN_PIN_WIDTH = 65;
 
 var generateNoticesArray = function () {
   var noticesArray = [];
@@ -58,7 +62,6 @@ var generateNoticesArray = function () {
 
 var mocks = generateNoticesArray();
 var map = document.querySelector('.map');
-map.classList.remove('map--faded');
 
 var createPins = function () {
   var pinTemplate = document.querySelector('#pin').content;
@@ -86,5 +89,89 @@ var renderPins = function () {
   mapPins.appendChild(fragment);
 };
 
-renderPins();
 
+// Добавляет аттрибут disabled к элементам массива
+var disableFields = function (array) {
+  array.forEach(function (field) {
+    field.setAttribute('disabled', 'disabled');
+  });
+};
+
+// Удаляет аттрибут disabled у элементов массива
+var enableFields = function (array) {
+  array.forEach(function (field) {
+    field.removeAttribute('disabled', 'disabled');
+  });
+};
+
+// Выключает элементы формы объявления
+var adForm = document.querySelector('.ad-form');
+var adFormFieldsets = adForm.querySelectorAll('fieldset');
+disableFields(adFormFieldsets);
+
+
+// Выключает элементы фильтра объявлений
+var mapFilters = document.querySelector('.map__filters');
+var mapFilterFieldsets = mapFilters.querySelectorAll('fieldset');
+var mapFilterSelects = mapFilters.querySelectorAll('select');
+disableFields(mapFilterFieldsets);
+disableFields(mapFilterSelects);
+
+var activateMap = function () {
+  map.classList.remove('map--faded');
+  enableFields(adFormFieldsets);
+  enableFields(mapFilterFieldsets);
+  enableFields(mapFilterSelects);
+  adForm.classList.remove('ad-form--disabled');
+};
+
+var activeState = function () {
+  activateMap();
+  setAddress();
+  renderPins();
+};
+
+// Активное состояние при клике на маркер
+var mapPinMain = map.querySelector('.map__pin--main');
+mapPinMain.addEventListener('mousedown', function () {
+  activeState();
+});
+
+// Активное состояние - Enter на маркере
+mapPinMain.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    activeState();
+  }
+});
+
+// Строка в поле "Адрес"
+var mainPinLocation = (Math.floor(mapPinMain.offsetLeft + MAIN_PIN_WIDTH / 2)
+  + ', ' + Math.floor(mapPinMain.offsetTop + MAIN_PIN_HEIGHT / 2));
+var address = adForm.querySelector('input[name=address]');
+address.value = mainPinLocation;
+
+var setAddress = function () {
+  address.value = (Math.floor(mapPinMain.offsetLeft + ACTIVE_MAIN_PIN_WIDTH / 2)
+    + ', ' + Math.floor(mapPinMain.offsetTop + ACTIVE_MAIN_PIN_HEIGHT));
+};
+
+var rooms = adForm.querySelector('#room_number');
+var capacity = adForm.querySelector('#capacity');
+
+
+var capacityCheck = function () {
+  if (rooms.value === '1' && capacity.value !== '1') {
+    capacity.setCustomValidity('Только для 1 гостя');
+  } else if (rooms.value === '2' && capacity.value !== '1' && capacity.value !== '2') {
+    capacity.setCustomValidity('1 - 2 гостя');
+  } else if (rooms.value === '3' && capacity.value !== '1' && capacity.value !== '2' && capacity.value !== '3') {
+    capacity.setCustomValidity('Для гостей');
+  } else if (rooms.value === '100' && capacity.value !== '0') {
+    capacity.setCustomValidity('Не для гостей');
+  } else {
+    capacity.setCustomValidity('');
+  }
+};
+
+capacity.addEventListener('input', capacityCheck);
+rooms.addEventListener('input', capacityCheck);
