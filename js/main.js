@@ -133,9 +133,7 @@ var activeState = function () {
 
 // Активное состояние при клике на маркер
 var mapPinMain = map.querySelector('.map__pin--main');
-mapPinMain.addEventListener('mousedown', function () {
-  activeState();
-});
+mapPinMain.addEventListener('mousedown', activeState);
 
 // Активное состояние - Enter на маркере
 mapPinMain.addEventListener('keydown', function (evt) {
