@@ -3,7 +3,6 @@
 
 (function () {
 
-
   var adForm = document.querySelector('.ad-form');
   var rooms = adForm.querySelector('#room_number');
   var capacity = adForm.querySelector('#capacity');
