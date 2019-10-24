@@ -3,42 +3,12 @@
 
 (function () {
 
-
-  var PIN_HEIGHT = 70;
-  var PIN_WIDTH = 50;
   var MAIN_PIN_HEIGHT = 65;
   var MAIN_PIN_WIDTH = 65;
   var ACTIVE_MAIN_PIN_HEIGHT = 75;
   var ACTIVE_MAIN_PIN_WIDTH = 65;
 
-
   var map = document.querySelector('.map');
-
-  var createPins = function () {
-    var pinTemplate = document.querySelector('#pin').content;
-    var newPinTemplate = pinTemplate.querySelector('.map__pin');
-    var newPins = [];
-    for (var i = 0; i < window.data.notices.length; i++) {
-      newPins[i] = newPinTemplate.cloneNode(true);
-      newPins[i].firstChild.alt = window.data.notices[i].offer.title;
-      newPins[i].firstChild.src = window.data.notices[i].author.avatar;
-      newPins[i].style.left = (window.data.notices[i].location.x - PIN_WIDTH / 2) + 'px';
-      newPins[i].style.top = (window.data.notices[i].location.y - PIN_HEIGHT / 2) + 'px';
-    }
-    return newPins;
-  };
-
-
-  var renderPins = function () {
-    var newPins = createPins();
-    var mapPins = document.querySelector('.map__pins');
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < newPins.length; i++) {
-      fragment.appendChild(newPins[i]);
-    }
-    mapPins.appendChild(fragment);
-  };
-
 
   // Добавляет аттрибут disabled к элементам массива
   var disableFields = function (array) {
@@ -78,8 +48,9 @@
   var activeState = function () {
     activateMap();
     setAddress();
-    renderPins();
+    window.pin.renderPins();
   };
+
 
   // Активное состояние при клике на маркер
   var mapPinMain = map.querySelector('.map__pin--main');
