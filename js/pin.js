@@ -8,6 +8,7 @@
   var maxPins = 5;
 
   var createPins = function () {
+
     var pinTemplate = document.querySelector('#pin').content;
     var newPinTemplate = pinTemplate.querySelector('.map__pin');
     var newPins = [];

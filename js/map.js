@@ -43,6 +43,7 @@
     enableFields(mapFilterFieldsets);
     enableFields(mapFilterSelects);
     adForm.classList.remove('ad-form--disabled');
+
   };
 
   var activeState = function () {

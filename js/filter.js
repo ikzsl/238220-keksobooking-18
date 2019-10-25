@@ -4,12 +4,10 @@
 
   var filters = document.querySelector('.map__filters');
   var type = filters.querySelector('#housing-type');
-  var filteredNotices = window.data.notices;
+  var filteredNotices = [];
+
   type.addEventListener('change', function () {
-
     window.pin.removePins();
-
-
     var housingType = window.data.notices.filter(function (notice) {
       return notice.offer.type === type.value;
     });

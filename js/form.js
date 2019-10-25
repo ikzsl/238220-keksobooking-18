@@ -7,7 +7,6 @@
   var rooms = adForm.querySelector('#room_number');
   var capacity = adForm.querySelector('#capacity');
 
-
   var capacityCheck = function () {
     if (rooms.value === '1' && capacity.value !== '1') {
       capacity.setCustomValidity('Только для 1 гостя');

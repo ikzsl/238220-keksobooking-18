@@ -11,6 +11,7 @@
 
   var successHandler = function (items) {
     window.data.notices = items;
+    window.filter.filteredNotices = window.data.notices;
   };
 
   window.backend.load(successHandler, errorHandler);
