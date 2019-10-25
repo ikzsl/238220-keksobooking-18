@@ -11,13 +11,17 @@
 
   var successHandler = function (items) {
     window.data.notices = items;
-    window.filter.filteredNotices = window.data.notices;
+    window.filter.filteredNotices = getNotices();
   };
 
   window.backend.load(successHandler, errorHandler);
 
+  var getNotices = function () {
+    return window.data.notices;
+  };
+
   window.data = {
-    notices: []
+    getNotices: getNotices
   };
 
 })();
