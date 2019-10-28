@@ -43,13 +43,29 @@
     enableFields(mapFilterFieldsets);
     enableFields(mapFilterSelects);
     adForm.classList.remove('ad-form--disabled');
-
   };
 
+  var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+  var error = errorTemplate.cloneNode(true);
+  var errorHandler = function () {
+    document.body.appendChild(error);
+  };
+
+  var getNotices = function () {
+    var successHandler = function (items) {
+      window.map.notices = items;
+      window.filter.filteredNotices = window.map.notices;
+      window.pin.renderPins();
+    };
+    window.backend.load(successHandler, errorHandler);
+  };
+
+
   var activeState = function () {
+    getNotices();
     activateMap();
     setAddress();
-    window.pin.renderPins();
+
   };
 
 
@@ -75,7 +91,7 @@
 
 
   window.map = {
-    mainPinLocation: mainPinLocation
+    mainPinLocation: mainPinLocation,
   };
 
 }());

@@ -5,29 +5,26 @@
   var type = filters.querySelector('#housing-type');
   var filteredNotices = [];
 
-  var successHandler = function (data) {
-    window.filter = {
-      filteredNotices: data
-    };
-  };
-
-  window.backend.load(successHandler);
-
   type.addEventListener('change', function () {
-    var housingTypes = window.data.getNotices().filter(function (notice) {
+    window.pin.removePins();
+    filteredNotices = window.map.notices;
+
+    var housingTypes = filteredNotices.filter(function (notice) {
       return notice.offer.type === type.value;
     });
-    window.pin.removePins();
 
     if (type.value !== 'any') {
       filteredNotices = housingTypes;
-    } else {
-      filteredNotices = window.data.getNotices();
     }
 
     window.filter = {
       filteredNotices: filteredNotices
     };
     window.pin.renderPins();
+
   });
+  window.filter = {
+    filteredNotices: filteredNotices
+  };
+
 })();
