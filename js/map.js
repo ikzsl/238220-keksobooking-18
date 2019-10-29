@@ -58,6 +58,7 @@
       window.pin.renderPins();
     };
     window.backend.load(successHandler, errorHandler);
+    mapPinMain.removeEventListener('mousedown', activeState);
   };
 
 
