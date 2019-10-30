@@ -56,6 +56,8 @@
       window.map.notices = items;
       window.filter.filteredNotices = window.map.notices;
       window.pin.renderPins();
+      window.card.renderCards();
+      activateMap();
     };
     window.backend.load(successHandler, errorHandler);
     mapPinMain.removeEventListener('mousedown', activeState);
@@ -64,9 +66,7 @@
 
   var activeState = function () {
     getNotices();
-    activateMap();
     setAddress();
-
   };
 
 
