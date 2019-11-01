@@ -51,12 +51,13 @@
     document.body.appendChild(error);
   };
 
+  var activeCard = 5; // текущее объявление
   var getNotices = function () {
     var successHandler = function (items) {
       window.map.notices = items;
       window.filter.filteredNotices = window.map.notices;
       window.pin.renderPins();
-      window.card.renderCards();
+      window.card.renderCards(items[activeCard]);
       activateMap();
     };
     window.backend.load(successHandler, errorHandler);
