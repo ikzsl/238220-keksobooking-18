@@ -19,9 +19,18 @@
       newPins[i].style.left = (window.filter.filteredNotices[i].location.x - PIN_WIDTH / 2) + 'px';
       newPins[i].style.top = (window.filter.filteredNotices[i].location.y - PIN_HEIGHT / 2) + 'px';
     }
+
+
+    newPins.forEach(function (item, j) {
+      item.addEventListener('click', function () {
+        item.classList.add('map__pin--active');
+        window.card.removeCard();
+        window.card.renderCards(window.filter.filteredNotices[j]);
+      });
+    });
+
     return newPins;
   };
-
 
   var renderPins = function () {
     var newPins = createPins();
@@ -31,6 +40,8 @@
       fragment.appendChild(newPins[i]);
     }
     mapPins.appendChild(fragment);
+
+    return newPins;
   };
 
   var removePins = function () {

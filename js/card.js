@@ -28,7 +28,6 @@
     var newCardTemplate = cardTemplate.querySelector('.map__card');
     var newCard = [];
 
-
     newCard = newCardTemplate.cloneNode(true);
 
     newCard.querySelector('.popup__title').textContent = card.offer.title;
@@ -64,17 +63,44 @@
     return newCard;
   };
 
+  var closePopup = function () {
+
+    document.querySelector('.popup__close')
+      .addEventListener('keydown', function (evt) {
+        window.util.isEnterEvent(evt, removeCard);
+      });
+
+    document.querySelector('.popup__close')
+      .addEventListener('click', removeCard);
+
+    document.querySelector('.map')
+      .addEventListener('keydown', function (evt) {
+        window.util.isEscEvent(evt, removeCard);
+      });
+
+  };
+
   var renderCards = function (card) {
     var map = document.querySelector('.map');
     var newCard = createCard(card);
     var mapCard = document.querySelector('.map__filters-container');
     var fragment = document.createDocumentFragment();
+
     fragment.appendChild(newCard);
     map.insertBefore(fragment, mapCard);
+    closePopup();
+  };
+
+  var removeCard = function () {
+    var mapCard = document.querySelector('article.map__card');
+    if (mapCard) {
+      mapCard.remove();
+    }
   };
 
   window.card = {
-    renderCards: renderCards
+    renderCards: renderCards,
+    removeCard: removeCard
   };
 
 })();
