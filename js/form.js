@@ -23,4 +23,41 @@
 
   capacity.addEventListener('input', capacityCheck);
   rooms.addEventListener('input', capacityCheck);
+
+  // Поле «Цена за ночь»
+  var price = adForm.querySelector('#price');
+
+  //   Поле «Тип жилья»
+  var type = adForm.querySelector('#type');
+
+  var priceCheck = function () {
+    if (type.value === 'bungalo') {
+      price.min = 0;
+      price.placeholder = '0';
+    } else if (type.value === 'flat') {
+      price.min = 1000;
+      price.placeholder = '1000';
+    } else if (type.value === 'house') {
+      price.min = 5000;
+      price.placeholder = '5000';
+    } else {
+      price.min = 10000;
+      price.placeholder = '10000';
+    }
+  };
+
+  type.addEventListener('input', priceCheck);
+
+  // Поля «Время заезда», «Время выезда»
+  var timein = adForm.querySelector('#timein');
+  var timeout = adForm.querySelector('#timeout');
+
+  timein.addEventListener('input', function () {
+    timeout.value = timein.value;
+  });
+
+  timeout.addEventListener('input', function () {
+    timein.value = timeout.value;
+  });
+
 })();
