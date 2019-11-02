@@ -47,6 +47,7 @@
   };
 
   type.addEventListener('input', priceCheck);
+  price.addEventListener('input', priceCheck);
 
   // Поля «Время заезда», «Время выезда»
   var timein = adForm.querySelector('#timein');
