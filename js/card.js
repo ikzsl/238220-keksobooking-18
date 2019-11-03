@@ -80,14 +80,11 @@
 
   };
 
-  var renderCards = function (card) {
+  var renderCard = function (card) {
     var map = document.querySelector('.map');
     var newCard = createCard(card);
     var mapCard = document.querySelector('.map__filters-container');
-    var fragment = document.createDocumentFragment();
-
-    fragment.appendChild(newCard);
-    map.insertBefore(fragment, mapCard);
+    map.insertBefore(newCard, mapCard);
     closePopup();
   };
 
@@ -99,7 +96,7 @@
   };
 
   window.card = {
-    renderCards: renderCards,
+    renderCard: renderCard,
     removeCard: removeCard
   };
 

@@ -20,7 +20,7 @@
     window.filter = {
       filteredNotices: filteredNotices
     };
-    window.pin.renderPins();
+    window.pin.renderPins(filteredNotices);
 
   });
   window.filter = {
