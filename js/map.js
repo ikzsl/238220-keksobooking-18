@@ -55,8 +55,7 @@
     var successHandler = function (items) {
       window.map.notices = items;
       window.filter.filteredNotices = window.map.notices;
-      window.pin.renderPins();
-      window.card.renderCards();
+      window.pin.renderPins(window.filter.filteredNotices);
       activateMap();
     };
     window.backend.load(successHandler, errorHandler);
