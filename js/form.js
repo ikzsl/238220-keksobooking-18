@@ -61,4 +61,22 @@
     timein.value = timeout.value;
   });
 
+
+  var successHandler = function () {
+    window.map.deactivateMap();
+    window.card.removeCard();
+    window.pin.removePins();
+    adForm.reset();
+  };
+
+  var errorHandler = function () {
+
+  };
+
+  var submit = adForm.querySelector('.ad-form__submit');
+  submit.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(adForm), successHandler, errorHandler);
+  });
+
 })();

@@ -9,6 +9,11 @@
   var ACTIVE_MAIN_PIN_WIDTH = 65;
   var TOP_MAP_BORDER = 130;
   var BOTTOM_MAP_BORDER = 630;
+  // var START_PIN = {
+  //   x: Math.floor(570 + MAIN_PIN_WIDTH / 2),
+  //   y: Math.floor(375 + MAIN_PIN_HEIGHT / 2)
+  // };
+
 
   var map = document.querySelector('.map');
 
@@ -47,6 +52,13 @@
     adForm.classList.remove('ad-form--disabled');
   };
 
+  var deactivateMap = function () {
+    map.classList.add('map--faded');
+    adForm.classList.add('ad-form--disabled');
+
+    mapPinMain.addEventListener('mousedown', activeState);
+  };
+
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
   var error = errorTemplate.cloneNode(true);
   var errorHandler = function () {
@@ -59,9 +71,10 @@
       window.filter.filteredNotices = window.map.notices;
       window.pin.renderPins(window.filter.filteredNotices);
       activateMap();
+      mapPinMain.removeEventListener('mousedown', activeState);
     };
     window.backend.load(successHandler, errorHandler);
-    mapPinMain.removeEventListener('mousedown', activeState);
+
   };
 
 
@@ -134,11 +147,12 @@
     address.value = (Math.floor(mapPinMain.offsetLeft + ACTIVE_MAIN_PIN_WIDTH / 2)
       + ', ' + Math.floor(mapPinMain.offsetTop + ACTIVE_MAIN_PIN_HEIGHT));
 
+
   };
 
-
   window.map = {
-    mainPinLocation: mainPinLocation,
+    deactivateMap: deactivateMap,
+    mapPinMain: mapPinMain
   };
 
 }());

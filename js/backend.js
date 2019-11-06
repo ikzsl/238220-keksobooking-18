@@ -4,10 +4,10 @@
   var TIMEOUT = 10000; // 10s
   var SUCCESS_CODE = 200;
 
-  var URL = 'https://js.dump.academy/keksobooking/data';
 
   window.backend = {
     load: function (onLoad, onError) {
+      var URL = 'https://js.dump.academy/keksobooking/data';
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
       xhr.addEventListener('load', function () {
@@ -30,6 +30,7 @@
       xhr.send();
     },
     save: function (data, onLoad, onError) {
+      var URL = 'https://js.dump.academy/keksobooking';
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
       xhr.addEventListener('load', function () {
