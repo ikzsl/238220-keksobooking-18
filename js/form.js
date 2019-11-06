@@ -63,10 +63,11 @@
 
 
   var successHandler = function () {
-    window.map.deactivateMap();
+
     window.card.removeCard();
     window.pin.removePins();
     adForm.reset();
+    window.map.deactivateMap();
   };
 
   var errorHandler = function () {

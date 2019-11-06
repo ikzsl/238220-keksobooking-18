@@ -16,6 +16,7 @@
 
 
   var map = document.querySelector('.map');
+  var mapOverlay = document.querySelector('.map__overlay');
 
   // Добавляет аттрибут disabled к элементам массива
   var disableFields = function (array) {
@@ -53,9 +54,13 @@
   };
 
   var deactivateMap = function () {
-    map.classList.add('map--faded');
-    adForm.classList.add('ad-form--disabled');
 
+    adForm.classList.add('ad-form--disabled');
+    map.classList.add('map--faded');
+    map.appendChild(mapOverlay);
+    disableFields(adFormFieldsets);
+    disableFields(mapFilterFieldsets);
+    disableFields(mapFilterSelects);
     mapPinMain.addEventListener('mousedown', activeState);
   };
 
