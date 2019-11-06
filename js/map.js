@@ -9,10 +9,10 @@
   var ACTIVE_MAIN_PIN_WIDTH = 65;
   var TOP_MAP_BORDER = 130;
   var BOTTOM_MAP_BORDER = 630;
-  // var START_PIN = {
-  //   x: Math.floor(570 + MAIN_PIN_WIDTH / 2),
-  //   y: Math.floor(375 + MAIN_PIN_HEIGHT / 2)
-  // };
+  var START_PIN = {
+    x: 570,
+    y: 375
+  };
 
 
   var map = document.querySelector('.map');
@@ -53,16 +53,6 @@
     adForm.classList.remove('ad-form--disabled');
   };
 
-  var deactivateMap = function () {
-
-    adForm.classList.add('ad-form--disabled');
-    map.classList.add('map--faded');
-    map.appendChild(mapOverlay);
-    disableFields(adFormFieldsets);
-    disableFields(mapFilterFieldsets);
-    disableFields(mapFilterSelects);
-    mapPinMain.addEventListener('mousedown', activeState);
-  };
 
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
   var error = errorTemplate.cloneNode(true);
@@ -79,16 +69,13 @@
       mapPinMain.removeEventListener('mousedown', activeState);
     };
     window.backend.load(successHandler, errorHandler);
-
   };
-
 
   var activeState = function () {
     getNotices();
     setAddress();
     mapPinMain.addEventListener('mousedown', onMouseDown);
   };
-
 
   var onMouseDown = function (evt) {
     evt.preventDefault();
@@ -142,6 +129,25 @@
     window.util.isEnterEvent(evt, activeState);
   });
 
+
+  var deactivateMap = function () {
+
+    adForm.classList.add('ad-form--disabled');
+    map.classList.add('map--faded');
+    map.appendChild(mapOverlay);
+    disableFields(adFormFieldsets);
+    disableFields(mapFilterFieldsets);
+    disableFields(mapFilterSelects);
+
+    mapPinMain.style.left = START_PIN.x + 'px';
+
+    mapPinMain.style.top = START_PIN.y + 'px';
+    setAddress();
+
+    mapPinMain.addEventListener('mousedown', activeState);
+
+  };
+
   // Строка в поле "Адрес"
   var mainPinLocation = (Math.floor(mapPinMain.offsetLeft + MAIN_PIN_WIDTH / 2)
     + ', ' + Math.floor(mapPinMain.offsetTop + MAIN_PIN_HEIGHT / 2));
@@ -154,6 +160,7 @@
 
 
   };
+
 
   window.map = {
     deactivateMap: deactivateMap,

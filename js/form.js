@@ -64,11 +64,36 @@
 
   var successHandler = function () {
 
+    var successMessageTemplate = document.querySelector('#success').content;
+    var successMessage = successMessageTemplate.cloneNode(true);
+    var main = document.querySelector('main');
+
+    main.appendChild(successMessage);
+    var newsuccessMessage = document.querySelector('.success');
     window.card.removeCard();
     window.pin.removePins();
     adForm.reset();
     window.map.deactivateMap();
+
+
+    var removeSuccessMessage = function () {
+      newsuccessMessage.remove();
+      document.removeEventListener('click', function () {
+        removeSuccessMessage();
+      });
+    };
+
+
+    document.addEventListener('click', function () {
+      removeSuccessMessage();
+    });
+
+
+    document.addEventListener('keydown', function (evt) {
+      window.util.isEscEvent(evt, removeSuccessMessage);
+    });
   };
+
 
   var errorHandler = function () {
 
