@@ -115,8 +115,8 @@
 
   };
 
-  var submit = adForm.querySelector('.ad-form__submit');
-  submit.addEventListener('click', function (evt) {
+
+  adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(adForm), successHandler, errorHandler);
   });
