@@ -53,12 +53,31 @@
     adForm.classList.remove('ad-form--disabled');
   };
 
-
-  var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-  var error = errorTemplate.cloneNode(true);
   var errorHandler = function () {
-    document.body.appendChild(error);
+
+    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+    var errorMessage = errorTemplate.cloneNode(true);
+    var main = document.querySelector('main');
+
+    main.appendChild(errorMessage);
+
+    var removeErrorMessage = function () {
+      errorMessage.remove();
+      document.removeEventListener('click', removeErrorMessage);
+      document.removeEventListener('keydown', function (evt) {
+        window.util.isEscEvent(evt, removeErrorMessage);
+      });
+    };
+
+    document.addEventListener('mousedown', removeErrorMessage);
+
+
+    //  не работает в firefox
+    document.addEventListener('keydown', function (evt) {
+      window.util.isEscEvent(evt, removeErrorMessage);
+    });
   };
+
 
   var getNotices = function () {
     var successHandler = function (items) {
@@ -139,10 +158,16 @@
     disableFields(mapFilterFieldsets);
     disableFields(mapFilterSelects);
 
+    window.card.removeCard();
+    window.pin.removePins();
+
     mapPinMain.style.left = START_PIN.x + 'px';
 
     mapPinMain.style.top = START_PIN.y + 'px';
-    setAddress();
+    // setAddress();
+
+    address.value = (Math.floor(mapPinMain.offsetLeft + MAIN_PIN_WIDTH / 2)
+      + ', ' + Math.floor(mapPinMain.offsetTop + MAIN_PIN_HEIGHT / 2));
 
     mapPinMain.addEventListener('mousedown', activeState);
 
@@ -157,8 +182,6 @@
   var setAddress = function () {
     address.value = (Math.floor(mapPinMain.offsetLeft + ACTIVE_MAIN_PIN_WIDTH / 2)
       + ', ' + Math.floor(mapPinMain.offsetTop + ACTIVE_MAIN_PIN_HEIGHT));
-
-
   };
 
 

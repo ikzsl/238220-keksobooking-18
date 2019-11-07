@@ -70,25 +70,22 @@
 
     main.appendChild(successMessage);
     var newsuccessMessage = document.querySelector('.success');
-    window.card.removeCard();
-    window.pin.removePins();
+
     adForm.reset();
     window.map.deactivateMap();
 
-
     var removeSuccessMessage = function () {
       newsuccessMessage.remove();
-      document.removeEventListener('click', function () {
-        removeSuccessMessage();
+      document.removeEventListener('click', removeSuccessMessage);
+      document.removeEventListener('keydown', function (evt) {
+        window.util.isEscEvent(evt, removeSuccessMessage);
       });
     };
 
-
-    document.addEventListener('click', function () {
-      removeSuccessMessage();
-    });
+    document.addEventListener('click', removeSuccessMessage);
 
 
+    //  не работает в firefox
     document.addEventListener('keydown', function (evt) {
       window.util.isEscEvent(evt, removeSuccessMessage);
     });
@@ -97,12 +94,41 @@
 
   var errorHandler = function () {
 
+    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+    var errorMessage = errorTemplate.cloneNode(true);
+    var main = document.querySelector('main');
+
+    main.appendChild(errorMessage);
+
+    var removeErrorMessage = function () {
+      errorMessage.remove();
+      document.removeEventListener('click', removeErrorMessage);
+      document.removeEventListener('keydown', function (evt) {
+        window.util.isEscEvent(evt, removeErrorMessage);
+      });
+    };
+
+    document.addEventListener('click', removeErrorMessage);
+
+
+    //  не работает в firefox
+    document.addEventListener('keydown', function (evt) {
+      window.util.isEscEvent(evt, removeErrorMessage);
+    });
+
   };
 
   var submit = adForm.querySelector('.ad-form__submit');
   submit.addEventListener('click', function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(adForm), successHandler, errorHandler);
+  });
+
+  var reset = adForm.querySelector('.ad-form__reset');
+  reset.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    adForm.reset();
+    window.map.deactivateMap();
   });
 
 })();
