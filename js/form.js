@@ -64,28 +64,26 @@
 
   var successHandler = function () {
 
-    var successMessageTemplate = document.querySelector('#success').content;
-    var successMessage = successMessageTemplate.cloneNode(true);
+    var successTemplate = document.querySelector('#success').content.querySelector('.success');
+    var successMessage = successTemplate.cloneNode(true);
     var main = document.querySelector('main');
 
     main.appendChild(successMessage);
-    var newsuccessMessage = document.querySelector('.success');
 
-    adForm.reset();
-    window.map.deactivateMap();
 
     var removeSuccessMessage = function () {
-      newsuccessMessage.remove();
+      successMessage.remove();
       document.removeEventListener('click', removeSuccessMessage);
       document.removeEventListener('keydown', function (evt) {
         window.util.isEscEvent(evt, removeSuccessMessage);
       });
+      adForm.reset();
+      window.map.deactivateMap();
     };
 
     document.addEventListener('click', removeSuccessMessage);
 
 
-    //  не работает в firefox
     document.addEventListener('keydown', function (evt) {
       window.util.isEscEvent(evt, removeSuccessMessage);
     });
@@ -111,7 +109,6 @@
     document.addEventListener('click', removeErrorMessage);
 
 
-    //  не работает в firefox
     document.addEventListener('keydown', function (evt) {
       window.util.isEscEvent(evt, removeErrorMessage);
     });

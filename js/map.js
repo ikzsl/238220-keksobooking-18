@@ -126,10 +126,12 @@
 
       mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
       mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+
+      setAddress();
     };
 
     var onMouseUp = function () {
-      setAddress();
+
       map.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
@@ -164,7 +166,6 @@
     mapPinMain.style.left = START_PIN.x + 'px';
 
     mapPinMain.style.top = START_PIN.y + 'px';
-    // setAddress();
 
     address.value = (Math.floor(mapPinMain.offsetLeft + MAIN_PIN_WIDTH / 2)
       + ', ' + Math.floor(mapPinMain.offsetTop + MAIN_PIN_HEIGHT / 2));
