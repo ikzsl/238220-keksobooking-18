@@ -54,7 +54,6 @@
   };
 
   var errorHandler = function () {
-
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     var errorMessage = errorTemplate.cloneNode(true);
     var main = document.querySelector('main');
@@ -93,7 +92,7 @@
   var activeState = function () {
     getNotices();
     setAddress();
-    mapPinMain.addEventListener('mousedown', onMouseDown);
+    // mapPinMain.addEventListener('mousedown', onMouseDown);
   };
 
   var onMouseDown = function (evt) {
@@ -142,6 +141,7 @@
   // Активное состояние при клике на маркер
   var mapPinMain = map.querySelector('.map__pin--main');
   mapPinMain.addEventListener('mousedown', activeState);
+  mapPinMain.addEventListener('mousedown', onMouseDown);
 
   // Активное состояние - Enter на маркере
   mapPinMain.addEventListener('keydown', function (evt) {
