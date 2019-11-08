@@ -3,8 +3,8 @@
 (function () {
   var TIMEOUT = 10000; // 10s
   var SUCCESS_CODE = 200;
+  var BASE_URL = 'https://js.dump.academy/keksobooking';
 
-  var URL = 'https://js.dump.academy/keksobooking/data';
 
   window.backend = {
     load: function (onLoad, onError) {
@@ -26,7 +26,7 @@
         onError('Запрос не успел выполнится за ' + xhr.timeout + 'мс');
       });
       xhr.timeout = TIMEOUT;
-      xhr.open('GET', URL);
+      xhr.open('GET', BASE_URL + '/data');
       xhr.send();
     },
     save: function (data, onLoad, onError) {
@@ -44,7 +44,7 @@
         onError('Запрос не успел выполнится за ' + xhr.timeout + 'мс');
       });
       xhr.timeout = TIMEOUT;
-      xhr.open('POST', URL);
+      xhr.open('POST', BASE_URL);
       xhr.send(data);
     }
   };
