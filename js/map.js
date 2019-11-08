@@ -16,7 +16,7 @@
 
 
   var map = document.querySelector('.map');
-  var mapOverlay = document.querySelector('.map__overlay');
+
 
   // Добавляет аттрибут disabled к элементам массива
   var disableFields = function (array) {
@@ -131,7 +131,6 @@
     };
 
     var onMouseUp = function () {
-
       map.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
@@ -139,7 +138,6 @@
     map.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
-
 
   // Активное состояние при клике на маркер
   var mapPinMain = map.querySelector('.map__pin--main');
@@ -152,19 +150,14 @@
 
 
   var deactivateMap = function () {
-
     adForm.classList.add('ad-form--disabled');
     map.classList.add('map--faded');
-    map.appendChild(mapOverlay);
     disableFields(adFormFieldsets);
     disableFields(mapFilterFieldsets);
     disableFields(mapFilterSelects);
-
     window.card.removeCard();
     window.pin.removePins();
-
     mapPinMain.style.left = START_PIN.x + 'px';
-
     mapPinMain.style.top = START_PIN.y + 'px';
 
     address.value = (Math.floor(mapPinMain.offsetLeft + MAIN_PIN_WIDTH / 2)

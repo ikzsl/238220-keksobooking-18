@@ -70,23 +70,20 @@
 
     main.appendChild(successMessage);
 
+    var onEscRemoveSuccessMessage = function (evt) {
+      window.util.isEscEvent(evt, removeSuccessMessage);
+    };
 
     var removeSuccessMessage = function () {
       successMessage.remove();
       document.removeEventListener('click', removeSuccessMessage);
-      document.removeEventListener('keydown', function (evt) {
-        window.util.isEscEvent(evt, removeSuccessMessage);
-      });
+      document.removeEventListener('keydown', onEscRemoveSuccessMessage);
       adForm.reset();
       window.map.deactivateMap();
     };
 
     document.addEventListener('click', removeSuccessMessage);
-
-
-    document.addEventListener('keydown', function (evt) {
-      window.util.isEscEvent(evt, removeSuccessMessage);
-    });
+    document.addEventListener('keydown', onEscRemoveSuccessMessage);
   };
 
 
