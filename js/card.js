@@ -34,9 +34,10 @@
     newCard.querySelector('.popup__text--address').textContent = card.offer.address;
     newCard.querySelector('.popup__text--price').textContent = card.offer.price + '₽/ночь';
     newCard.querySelector('.popup__type').textContent = types[card.offer.type];
-    newCard.querySelector('.popup__text--capacity').textContent = card.offer.rooms + rooms(card.offer.rooms) +
-      ' для ' + card.offer.guests + guests(card.offer.guests);
-    newCard.querySelector('.popup__text--time').textContent = 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout;
+    newCard.querySelector('.popup__text--capacity').textContent = (card.offer.rooms)
+      ? card.offer.rooms + rooms(card.offer.rooms) + ' для ' + card.offer.guests + guests(card.offer.guests) : '';
+    newCard.querySelector('.popup__text--time').textContent = (card.offer.checkin !== '0:00')
+      ? 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout : '';
 
     var featureItems = newCard.querySelector('.popup__features');
     featureItems.innerHTML = '';
