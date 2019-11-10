@@ -54,10 +54,33 @@
       filteredNotices = housingGuests;
     }
 
-    // фильтр по удобствам
+    // фильтр по удобствам ----------------------
+    var features = Array.from(filters.querySelectorAll('#housing-features input:checked'));
+    var featuresOn = [];
+
+    features.forEach(function (item, index) {
+      featuresOn[index] = item.value;
+    });
+
+    var compareArr = [];
+
+    for (var i = 0; i < filteredNotices.length; ++i) {
+      compareArr[i] = filteredNotices[i].offer.features.some(function (feature) {
+        return (featuresOn.indexOf(feature) > -1);
+      });
+    }
+
+    var housingFeatures = filteredNotices.filter(function (elem, index) {
+      return compareArr[index];
+    });
+
+    if (featuresOn.length !== 0) {
+      filteredNotices = housingFeatures;
+    }
 
     window.pin.renderPins(filteredNotices);
   });
+
 
   window.filter = {
     filteredNotices: filteredNotices
