@@ -70,8 +70,6 @@
 
     document.addEventListener('mousedown', removeErrorMessage);
 
-
-    //  не работает в firefox
     document.addEventListener('keydown', function (evt) {
       window.util.isEscEvent(evt, removeErrorMessage);
     });
@@ -92,7 +90,6 @@
   var activeState = function () {
     getNotices();
     setAddress();
-    // mapPinMain.addEventListener('mousedown', onMouseDown);
   };
 
   var onMouseDown = function (evt) {
@@ -105,7 +102,6 @@
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-
       var shift = {
         x: startCoords.x - moveEvt.clientX,
         y: startCoords.y - moveEvt.clientY

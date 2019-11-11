@@ -68,22 +68,25 @@
     window.util.isEnterEvent(evt, removeCard);
   };
 
+  var map = document.querySelector('.map');
+  var mapFiltersContainer = document.querySelector('.map__filters-container');
+
   var renderCard = function (card) {
-    var map = document.querySelector('.map');
     var newCard = createCard(card);
-    var mapCard = document.querySelector('.map__filters-container');
-    map.insertBefore(newCard, mapCard);
+    map.insertBefore(newCard, mapFiltersContainer);
+    var popupClose = document.querySelector('.popup__close');
     document.addEventListener('keydown', onEscRemoveCard);
-    document.querySelector('.popup__close').addEventListener('keydown', onEnterRemoveCard);
-    document.querySelector('.popup__close').addEventListener('click', removeCard);
+    popupClose.addEventListener('keydown', onEnterRemoveCard);
+    popupClose.addEventListener('click', removeCard);
   };
 
   var removeCard = function () {
     var mapCard = document.querySelector('article.map__card');
     if (mapCard) {
+      var popupClose = document.querySelector('.popup__close');
       document.removeEventListener('keydown', onEscRemoveCard);
-      document.querySelector('.popup__close').removeEventListener('keydown', onEnterRemoveCard);
-      document.querySelector('.popup__close').removeEventListener('click', removeCard);
+      popupClose.removeEventListener('keydown', onEnterRemoveCard);
+      popupClose.removeEventListener('click', removeCard);
       mapCard.remove();
     }
   };

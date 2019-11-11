@@ -3,11 +3,11 @@
 (function () {
   var filters = document.querySelector('.map__filters');
   var filteredNotices = [];
-  filters.addEventListener('change', function () {
+
+
+  var filterNotices = function () {
 
     filteredNotices = window.map.notices;
-    window.pin.removePins();
-
 
     // фильтр по типу жилья
     var type = filters.querySelector('#housing-type');
@@ -55,9 +55,35 @@
     }
 
     // фильтр по удобствам
+    var features = Array.from(filters.querySelectorAll('#housing-features input:checked'));
+    var featuresOn = [];
 
+    features.forEach(function (item, index) {
+      featuresOn[index] = item.value;
+    });
+
+    var compareArr = [];
+
+    for (var i = 0; i < filteredNotices.length; ++i) {
+      compareArr[i] = filteredNotices[i].offer.features.some(function (feature) {
+        return (featuresOn.indexOf(feature) > -1);
+      });
+    }
+
+    var housingFeatures = filteredNotices.filter(function (elem, index) {
+      return compareArr[index];
+    });
+
+    if (featuresOn.length !== 0) {
+      filteredNotices = housingFeatures;
+    }
+
+    window.pin.removePins();
     window.pin.renderPins(filteredNotices);
-  });
+
+  };
+
+  filters.addEventListener('change', window.debounce(filterNotices));
 
   window.filter = {
     filteredNotices: filteredNotices
