@@ -77,7 +77,7 @@
     if (featuresOn.length !== 0) {
       filteredNotices = housingFeatures;
     }
-
+    window.card.removeCard();
     window.pin.removePins();
     window.pin.renderPins(filteredNotices);
 
