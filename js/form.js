@@ -7,7 +7,7 @@
   var rooms = adForm.querySelector('#room_number');
   var capacity = adForm.querySelector('#capacity');
 
-  var capacityCheck = function () {
+  var onCapacityCheck = function () {
     if (rooms.value === '1' && capacity.value !== '1') {
       capacity.setCustomValidity('Только для 1 гостя');
     } else if (rooms.value === '2' && capacity.value !== '1' && capacity.value !== '2') {
@@ -21,8 +21,8 @@
     }
   };
 
-  capacity.addEventListener('input', capacityCheck);
-  rooms.addEventListener('input', capacityCheck);
+  capacity.addEventListener('input', onCapacityCheck);
+  rooms.addEventListener('input', onCapacityCheck);
 
   // Поле «Цена за ночь»
   var price = adForm.querySelector('#price');
@@ -30,7 +30,7 @@
   //   Поле «Тип жилья»
   var type = adForm.querySelector('#type');
 
-  var priceCheck = function () {
+  var onPriceCheck = function () {
     if (type.value === 'bungalo') {
       price.min = 0;
       price.placeholder = '0';
@@ -46,8 +46,8 @@
     }
   };
 
-  type.addEventListener('input', priceCheck);
-  price.addEventListener('input', priceCheck);
+  type.addEventListener('input', onPriceCheck);
+  price.addEventListener('input', onPriceCheck);
 
   // Поля «Время заезда», «Время выезда»
   var timein = adForm.querySelector('#timein');
@@ -62,7 +62,7 @@
   });
 
 
-  var successHandler = function () {
+  var onSuccess = function () {
 
     var successTemplate = document.querySelector('#success').content.querySelector('.success');
     var successMessage = successTemplate.cloneNode(true);
@@ -87,7 +87,7 @@
   };
 
 
-  var errorHandler = function () {
+  var onError = function () {
 
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     var errorMessage = errorTemplate.cloneNode(true);
@@ -115,7 +115,7 @@
 
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(adForm), successHandler, errorHandler);
+    window.backend.save(new FormData(adForm), onSuccess, onError);
   });
 
   var reset = adForm.querySelector('.ad-form__reset');
