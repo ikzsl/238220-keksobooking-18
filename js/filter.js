@@ -62,13 +62,24 @@
       featuresOn[index] = item.value;
     });
 
+
+    var isContain = function (where, what) {
+      for (var i = 0; i < what.length; i++) {
+        if (where.indexOf(what[i]) === -1) {
+          return false;
+        }
+      }
+      return true;
+    };
+
     var compareArr = [];
 
-    for (var i = 0; i < filteredNotices.length; ++i) {
-      compareArr[i] = filteredNotices[i].offer.features.some(function (feature) {
-        return (featuresOn.indexOf(feature) > -1);
-      });
+    for (var j = 0; j < filteredNotices.length; ++j) {
+
+      compareArr[j] = isContain(filteredNotices[j].offer.features, featuresOn);
+
     }
+
 
     var housingFeatures = filteredNotices.filter(function (elem, index) {
       return compareArr[index];
@@ -77,6 +88,8 @@
     if (featuresOn.length !== 0) {
       filteredNotices = housingFeatures;
     }
+
+
     window.card.removeCard();
     window.pin.removePins();
     window.pin.renderPins(filteredNotices);
