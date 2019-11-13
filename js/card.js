@@ -9,7 +9,7 @@
     'palace': 'Дворец'
   };
 
-  var rooms = function (number) {
+  var getWordOfRoomsCount = function (number) {
     if (number === 1) {
       return ' комната ';
     } else if (number > 4) {
@@ -19,14 +19,14 @@
     }
   };
 
-  var guests = function (number) {
+  var getWordOfGuestsCount = function (number) {
     return (number === 1) ? ' гостя ' : ' гостей ';
   };
 
   var createCard = function (card) {
     var cardTemplate = document.querySelector('#card').content;
     var newCardTemplate = cardTemplate.querySelector('.map__card');
-    var newCard = [];
+    var newCard = '';
 
     newCard = newCardTemplate.cloneNode(true);
 
@@ -35,7 +35,7 @@
     newCard.querySelector('.popup__text--price').textContent = card.offer.price + '₽/ночь';
     newCard.querySelector('.popup__type').textContent = types[card.offer.type];
     newCard.querySelector('.popup__text--capacity').textContent = (card.offer.rooms)
-      ? card.offer.rooms + rooms(card.offer.rooms) + ' для ' + card.offer.guests + guests(card.offer.guests) : '';
+      ? card.offer.rooms + getWordOfRoomsCount(card.offer.rooms) + ' для ' + card.offer.guests + getWordOfGuestsCount(card.offer.guests) : '';
     newCard.querySelector('.popup__text--time').textContent = (card.offer.checkin !== '0:00')
       ? 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout : '';
 

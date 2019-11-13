@@ -53,7 +53,7 @@
     adForm.classList.remove('ad-form--disabled');
   };
 
-  var errorHandler = function () {
+  var onError = function () {
     var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     var errorMessage = errorTemplate.cloneNode(true);
     var main = document.querySelector('main');
@@ -77,17 +77,17 @@
 
 
   var getNotices = function () {
-    var successHandler = function (items) {
+    var onSuccess = function (items) {
       window.map.notices = items;
       window.filter.filteredNotices = window.map.notices;
       window.pin.renderPins(window.filter.filteredNotices);
       activateMap();
-      mapPinMain.removeEventListener('mousedown', activeState);
+      mapPinMain.removeEventListener('mousedown', activateState);
     };
-    window.backend.load(successHandler, errorHandler);
+    window.backend.load(onSuccess, onError);
   };
 
-  var activeState = function () {
+  var activateState = function () {
     getNotices();
     setAddress();
   };
@@ -136,12 +136,12 @@
 
   // Активное состояние при клике на маркер
   var mapPinMain = map.querySelector('.map__pin--main');
-  mapPinMain.addEventListener('mousedown', activeState);
+  mapPinMain.addEventListener('mousedown', activateState);
   mapPinMain.addEventListener('mousedown', onMouseDown);
 
   // Активное состояние - Enter на маркере
   mapPinMain.addEventListener('keydown', function (evt) {
-    window.util.isEnterEvent(evt, activeState);
+    window.util.isEnterEvent(evt, activateState);
   });
 
 
@@ -159,7 +159,7 @@
     address.value = (Math.floor(mapPinMain.offsetLeft + MAIN_PIN_WIDTH / 2)
       + ', ' + Math.floor(mapPinMain.offsetTop + MAIN_PIN_HEIGHT / 2));
 
-    mapPinMain.addEventListener('mousedown', activeState);
+    mapPinMain.addEventListener('mousedown', activateState);
 
   };
 

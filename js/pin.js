@@ -5,7 +5,7 @@
   var PIN_HEIGHT = 70;
   var PIN_WIDTH = 50;
 
-  var maxPins = 5;
+  var MAX_PINS = 5;
 
   var createPins = function (pins) {
 
@@ -20,10 +20,14 @@
       newPins[i].style.top = (pins[i].location.y - PIN_HEIGHT / 2) + 'px';
     }
 
-
+    var activePin = '';
     newPins.forEach(function (item, j) {
       item.addEventListener('click', function () {
+        if (activePin) {
+          activePin.classList.remove('map__pin--active');
+        }
         item.classList.add('map__pin--active');
+        activePin = item;
         window.card.removeCard();
         window.card.renderCard(pins[j]);
       });
@@ -36,7 +40,7 @@
     var newPins = createPins(pins);
     var mapPins = document.querySelector('.map__pins');
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < Math.min(pins.length, maxPins); i++) {
+    for (var i = 0; i < Math.min(pins.length, MAX_PINS); i++) {
       fragment.appendChild(newPins[i]);
     }
     mapPins.appendChild(fragment);
