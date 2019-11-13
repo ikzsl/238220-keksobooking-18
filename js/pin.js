@@ -20,10 +20,14 @@
       newPins[i].style.top = (pins[i].location.y - PIN_HEIGHT / 2) + 'px';
     }
 
-
+    var activePin = '';
     newPins.forEach(function (item, j) {
       item.addEventListener('click', function () {
+        if (activePin) {
+          activePin.classList.remove('map__pin--active');
+        }
         item.classList.add('map__pin--active');
+        activePin = item;
         window.card.removeCard();
         window.card.renderCard(pins[j]);
       });
