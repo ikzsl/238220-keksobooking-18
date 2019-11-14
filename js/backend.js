@@ -6,7 +6,7 @@
   var RESPONSE_TYPE = 'json';
   var BASE_URL = 'https://js.dump.academy/keksobooking';
 
-  var onDataLoad = function (xhr, onLoad, onError) {
+  var loadData = function (xhr, onLoad, onError) {
     xhr.addEventListener('load', function () {
       if (xhr.status === SUCCESS_CODE) {
         onLoad(xhr.response);
@@ -16,7 +16,7 @@
     });
   };
 
-  var onLoadError = function (xhr, onError) {
+  var loadError = function (xhr, onError) {
     xhr.addEventListener('error', function () {
       onError('Произошла ошибка соединения');
     });
@@ -33,8 +33,8 @@
       xhr.responseType = RESPONSE_TYPE;
       xhr.timeout = TIMEOUT;
 
-      onDataLoad(xhr, onLoad, onError);
-      onLoadError(xhr, onError);
+      loadData(xhr, onLoad, onError);
+      loadError(xhr, onError);
 
       xhr.open('GET', BASE_URL + '/data');
       xhr.send();
@@ -45,7 +45,7 @@
       xhr.responseType = RESPONSE_TYPE;
       xhr.timeout = TIMEOUT;
 
-      onDataLoad(xhr, onLoad, onError);
+      loadData(xhr, onLoad, onError);
       onLoadError(xhr, onError);
 
       xhr.open('POST', BASE_URL);
