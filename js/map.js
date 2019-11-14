@@ -146,6 +146,7 @@
 
 
   var deactivateMap = function () {
+    mapFilters.reset();
     adForm.classList.add('ad-form--disabled');
     map.classList.add('map--faded');
     disableFields(adFormFieldsets);

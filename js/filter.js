@@ -63,7 +63,7 @@
     });
 
 
-    var isContain = function (where, what) {
+    var getContain = function (where, what) {
       for (var i = 0; i < what.length; i++) {
         if (where.indexOf(what[i]) === -1) {
           return false;
@@ -76,7 +76,7 @@
 
     for (var j = 0; j < filteredNotices.length; ++j) {
 
-      compareArr[j] = isContain(filteredNotices[j].offer.features, featuresOn);
+      compareArr[j] = getContain(filteredNotices[j].offer.features, featuresOn);
 
     }
 
