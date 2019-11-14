@@ -25,8 +25,8 @@
 
   document.querySelector('.ad-form__photo').appendChild(imageContainer);
   var photoPreview = document.querySelector('.ad-form__photo img');
-  photoPreview.width = 100;
-  photoPreview.height = 100;
+  photoPreview.width = 70;
+  photoPreview.height = 70;
 
   loadImage(photoFileChooser, photoPreview);
 })();

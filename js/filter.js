@@ -50,25 +50,17 @@
     var features = Array.from(filters.querySelectorAll('#housing-features input:checked'));
     var featuresOn = [];
 
+
     features.forEach(function (item, index) {
       featuresOn[index] = item.value;
     });
 
-
-    var getContain = function (where, what) {
-      for (var i = 0; i < what.length; i++) {
-        if (where.indexOf(what[i]) === -1) {
-          return false;
-        }
-      }
-      return true;
-    };
-
     var compareArr = [];
-
-    for (var j = 0; j < filteredNotices.length; ++j) {
-      compareArr[j] = getContain(filteredNotices[j].offer.features, featuresOn);
-    }
+    filteredNotices.forEach(function (notice, j) {
+      compareArr[j] = featuresOn.every(function (featureOn) {
+        return (notice.offer.features.includes(featureOn));
+      });
+    });
 
 
     if (featuresOn.length !== 0) {
