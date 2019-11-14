@@ -140,7 +140,10 @@
   };
 
   var removeCard = function () {
-    window.pin.active.classList.remove('map__pin--active');
+    if (window.pin.active) {
+      window.pin.active.classList.remove('map__pin--active');
+    }
+
     var mapCard = document.querySelector('article.map__card');
     if (mapCard) {
       var popupClose = document.querySelector('.popup__close');

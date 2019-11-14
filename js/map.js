@@ -77,6 +77,9 @@
     });
   };
 
+  var activateStateOnEnter = function (evt) {
+    window.util.isEnterEvent(evt, activateState);
+  };
 
   var getNotices = function () {
     var onSuccess = function (items) {
@@ -84,6 +87,7 @@
       window.filter.filteredNotices = window.map.notices;
       window.pin.renderPins(window.filter.filteredNotices);
       mapPinMain.removeEventListener('mousedown', activateState);
+      mapPinMain.removeEventListener('keydown', activateStateOnEnter);
     };
     window.backend.load(onSuccess, onError);
   };
@@ -147,9 +151,7 @@
 
 
   // Активное состояние - Enter на маркере
-  mapPinMain.addEventListener('keydown', function (evt) {
-    window.util.isEnterEvent(evt, activateState);
-  });
+  mapPinMain.addEventListener('keydown', activateStateOnEnter);
 
 
   var deactivateMap = function () {
