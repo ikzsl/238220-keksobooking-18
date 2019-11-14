@@ -46,7 +46,7 @@
       xhr.timeout = TIMEOUT;
 
       loadData(xhr, onLoad, onError);
-      onLoadError(xhr, onError);
+      loadError(xhr, onError);
 
       xhr.open('POST', BASE_URL);
       xhr.send(data);
