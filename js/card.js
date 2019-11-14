@@ -130,6 +130,7 @@
   var mapFiltersContainer = document.querySelector('.map__filters-container');
 
   var renderCard = function (card) {
+    window.pin.active.classList.add('map__pin--active');
     var newCard = createCard(card);
     map.insertBefore(newCard, mapFiltersContainer);
     var popupClose = document.querySelector('.popup__close');
@@ -139,6 +140,7 @@
   };
 
   var removeCard = function () {
+    window.pin.active.classList.remove('map__pin--active');
     var mapCard = document.querySelector('article.map__card');
     if (mapCard) {
       var popupClose = document.querySelector('.popup__close');
@@ -146,6 +148,8 @@
       popupClose.removeEventListener('keydown', onEnterRemoveCard);
       popupClose.removeEventListener('click', removeCard);
       mapCard.remove();
+
+
     }
   };
 
