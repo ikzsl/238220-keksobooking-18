@@ -9,6 +9,8 @@
   var ACTIVE_MAIN_PIN_WIDTH = 65;
   var TOP_MAP_BORDER = 130;
   var BOTTOM_MAP_BORDER = 630;
+  var LEFT_MAP_BORDER = 0;
+  var RIGHT_MAP_BORDER = 1200;
   var START_PIN = {
     x: 570,
     y: 375
@@ -117,6 +119,10 @@
         shift.y = -1;
       } else if (mapPinMain.offsetTop > BOTTOM_MAP_BORDER - ACTIVE_MAIN_PIN_HEIGHT) {
         shift.y = 1;
+      } else if (mapPinMain.offsetLeft < LEFT_MAP_BORDER - ACTIVE_MAIN_PIN_WIDTH / 2) {
+        shift.x = -1;
+      } else if (mapPinMain.offsetLeft > RIGHT_MAP_BORDER - ACTIVE_MAIN_PIN_WIDTH / 2) {
+        shift.x = 1;
       }
 
       mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
