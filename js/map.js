@@ -81,7 +81,6 @@
       window.map.notices = items;
       window.filter.filteredNotices = window.map.notices;
       window.pin.renderPins(window.filter.filteredNotices);
-      activateMap();
       mapPinMain.removeEventListener('mousedown', activateState);
     };
     window.backend.load(onSuccess, onError);
@@ -90,6 +89,7 @@
   var activateState = function () {
     getNotices();
     setAddress();
+    activateMap();
   };
 
   var onMouseDown = function (evt) {
@@ -138,6 +138,7 @@
   var mapPinMain = map.querySelector('.map__pin--main');
   mapPinMain.addEventListener('mousedown', activateState);
   mapPinMain.addEventListener('mousedown', onMouseDown);
+
 
   // Активное состояние - Enter на маркере
   mapPinMain.addEventListener('keydown', function (evt) {
