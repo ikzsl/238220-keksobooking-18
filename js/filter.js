@@ -11,47 +11,39 @@
 
     // фильтр по типу жилья
     var type = filters.querySelector('#housing-type');
-    var housingTypes = filteredNotices.filter(function (notice) {
-      return notice.offer.type === type.value;
-    });
-
     if (type.value !== 'any') {
-      filteredNotices = housingTypes;
+      filteredNotices = filteredNotices.filter(function (notice) {
+        return notice.offer.type === type.value;
+      });
     }
 
     // фильтр по цене
     var price = filters.querySelector('#housing-price');
-    var housingPrice = filteredNotices.filter(function (notice) {
-      if (price.value === 'low') {
-        return notice.offer.price < 10000;
-      } else if (price.value === 'middle') {
-        return notice.offer.price >= 10000 && notice.offer.price <= 50000;
-      }
-      return notice.offer.price > 50000;
-    });
-
     if (price.value !== 'any') {
-      filteredNotices = housingPrice;
+      filteredNotices = filteredNotices.filter(function (notice) {
+        if (price.value === 'low') {
+          return notice.offer.price < 10000;
+        } else if (price.value === 'middle') {
+          return notice.offer.price >= 10000 && notice.offer.price <= 50000;
+        }
+        return notice.offer.price > 50000;
+      });
     }
 
     // фильтр по числу комнат
     var rooms = filters.querySelector('#housing-rooms');
-    var housingRooms = filteredNotices.filter(function (notice) {
-      return notice.offer.rooms === +rooms.value;
-    });
-
     if (rooms.value !== 'any') {
-      filteredNotices = housingRooms;
+      filteredNotices = filteredNotices.filter(function (notice) {
+        return notice.offer.rooms === +rooms.value;
+      });
     }
 
     // фильтр по числу гостей
     var guests = filters.querySelector('#housing-guests');
-    var housingGuests = filteredNotices.filter(function (notice) {
-      return notice.offer.guests === +guests.value;
-    });
-
     if (guests.value !== 'any') {
-      filteredNotices = housingGuests;
+      filteredNotices = filteredNotices.filter(function (notice) {
+        return (notice.offer.guests === +guests.value);
+      });
     }
 
     // фильтр по удобствам
@@ -75,18 +67,14 @@
     var compareArr = [];
 
     for (var j = 0; j < filteredNotices.length; ++j) {
-
       compareArr[j] = getContain(filteredNotices[j].offer.features, featuresOn);
-
     }
 
 
-    var housingFeatures = filteredNotices.filter(function (elem, index) {
-      return compareArr[index];
-    });
-
     if (featuresOn.length !== 0) {
-      filteredNotices = housingFeatures;
+      filteredNotices = filteredNotices.filter(function (elem, index) {
+        return compareArr[index];
+      });
     }
 
 
