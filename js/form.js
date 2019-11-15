@@ -61,15 +61,15 @@
     timein.value = timeout.value;
   });
 
+  var main = document.querySelector('main');
+
+  var success = document.querySelector('#success');
+  var successTemplate = success.content.querySelector('.success');
 
   var onSuccess = function () {
 
-    var successTemplate = document.querySelector('#success').content.querySelector('.success');
     var successMessage = successTemplate.cloneNode(true);
-    var main = document.querySelector('main');
-
     main.appendChild(successMessage);
-
     var onEscRemoveSuccessMessage = function (evt) {
       window.util.isEscEvent(evt, removeSuccessMessage);
     };
@@ -86,12 +86,12 @@
     document.addEventListener('keydown', onEscRemoveSuccessMessage);
   };
 
+  var error = document.querySelector('#error');
+  var errorTemplate = error.content.querySelector('.error');
 
   var onError = function () {
 
-    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
     var errorMessage = errorTemplate.cloneNode(true);
-    var main = document.querySelector('main');
 
     main.appendChild(errorMessage);
 
