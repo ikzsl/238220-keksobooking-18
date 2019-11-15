@@ -29,8 +29,8 @@
         }
         item.classList.add('map__pin--active');
         window.pin.active = item;
-        window.card.removeCard();
-        window.card.renderCard(pins[j]);
+        window.card.clean();
+        window.card.render(pins[j]);
       });
 
 
@@ -39,7 +39,7 @@
     return newPins;
   };
 
-  var renderPins = function (pins) {
+  var render = function (pins) {
     var newPins = createPins(pins);
     var mapPins = document.querySelector('.map__pins');
     var fragment = document.createDocumentFragment();
@@ -51,7 +51,7 @@
     return newPins;
   };
 
-  var removePins = function () {
+  var clean = function () {
     var mapPins = document.querySelector('.map__pins');
     var mainPin = document.querySelector('.map__pin--main');
     var mapOverlay = document.querySelector('.map__overlay');
@@ -62,7 +62,7 @@
 
 
   window.pin = {
-    renderPins: renderPins,
-    removePins: removePins
+    render: render,
+    clean: clean
   };
 })();

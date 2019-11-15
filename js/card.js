@@ -123,23 +123,23 @@
   };
 
   var onEnterRemoveCard = function (evt) {
-    window.util.isEnterEvent(evt, removeCard);
+    window.util.isEnterEvent(evt, clean);
   };
 
   var map = document.querySelector('.map');
   var mapFiltersContainer = document.querySelector('.map__filters-container');
 
-  var renderCard = function (card) {
+  var render = function (card) {
     window.pin.active.classList.add('map__pin--active');
     var newCard = createCard(card);
     map.insertBefore(newCard, mapFiltersContainer);
     var popupClose = document.querySelector('.popup__close');
     document.addEventListener('keydown', onEscRemoveCard);
     popupClose.addEventListener('keydown', onEnterRemoveCard);
-    popupClose.addEventListener('click', removeCard);
+    popupClose.addEventListener('click', clean);
   };
 
-  var removeCard = function () {
+  var clean = function () {
     if (window.pin.active) {
       window.pin.active.classList.remove('map__pin--active');
     }
@@ -149,7 +149,7 @@
       var popupClose = document.querySelector('.popup__close');
       document.removeEventListener('keydown', onEscRemoveCard);
       popupClose.removeEventListener('keydown', onEnterRemoveCard);
-      popupClose.removeEventListener('click', removeCard);
+      popupClose.removeEventListener('click', clean);
       mapCard.remove();
 
 
@@ -157,12 +157,12 @@
   };
 
   var onEscRemoveCard = function (evt) {
-    window.util.isEscEvent(evt, removeCard);
+    window.util.isEscEvent(evt, clean);
   };
 
   window.card = {
-    renderCard: renderCard,
-    removeCard: removeCard
+    render: render,
+    clean: clean
   };
 
 })();

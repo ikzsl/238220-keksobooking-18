@@ -79,7 +79,7 @@
       document.removeEventListener('click', removeSuccessMessage);
       document.removeEventListener('keydown', onEscRemoveSuccessMessage);
       adForm.reset();
-      window.map.deactivateMap();
+      window.map.deactivate();
     };
 
     document.addEventListener('click', removeSuccessMessage);
@@ -122,7 +122,7 @@
   reset.addEventListener('click', function (evt) {
     evt.preventDefault();
     adForm.reset();
-    window.map.deactivateMap();
+    window.map.deactivate();
   });
 
 })();

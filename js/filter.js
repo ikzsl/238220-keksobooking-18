@@ -45,9 +45,9 @@
       return (typeOf && roomsOf && guestsOf && priceOf && featureOf);
     });
 
-    window.card.removeCard();
-    window.pin.removePins();
-    window.pin.renderPins(filteredNotices);
+    window.card.clean();
+    window.pin.clean();
+    window.pin.render(filteredNotices);
   };
 
   filters.addEventListener('change', window.debounce(filterNotices));
