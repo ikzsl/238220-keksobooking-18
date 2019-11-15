@@ -35,7 +35,6 @@
         window.card.render(pins[j]);
       });
 
-
     });
 
     return newPins;
@@ -53,15 +52,6 @@
     return newPins;
   };
 
-  // var clean = function () {
-  //   var mapPins = document.querySelector('.map__pins');
-  //   var mainPin = document.querySelector('.map__pin--main');
-  //   var mapOverlay = document.querySelector('.map__overlay');
-  //   mapPins.innerHTML = '';
-  //   mapPins.appendChild(mapOverlay);
-  //   mapPins.appendChild(mainPin);
-  // };
-
   var clean = function () {
     var mapPins = document.querySelector('.map__pins');
 
@@ -70,7 +60,6 @@
       mapPins.removeChild(mapPin);
     }
   };
-
 
   window.pin = {
     render: render,
