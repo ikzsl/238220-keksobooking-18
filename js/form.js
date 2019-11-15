@@ -3,6 +3,12 @@
 
 (function () {
 
+  var BUNGALO_PRICE_MIN = 0;
+  var FLAT_PRICE_MIN = 1000;
+  var HOUSE_PRICE_MIN = 5000;
+  var PALACE_PRICE_MIN = 10000;
+
+
   var adForm = document.querySelector('.ad-form');
   var rooms = adForm.querySelector('#room_number');
   var capacity = adForm.querySelector('#capacity');
@@ -32,17 +38,17 @@
 
   var onPriceCheck = function () {
     if (type.value === 'bungalo') {
-      price.min = 0;
-      price.placeholder = '0';
+      price.min = BUNGALO_PRICE_MIN;
+      price.placeholder = BUNGALO_PRICE_MIN;
     } else if (type.value === 'flat') {
-      price.min = 1000;
-      price.placeholder = '1000';
+      price.min = FLAT_PRICE_MIN;
+      price.placeholder = FLAT_PRICE_MIN;
     } else if (type.value === 'house') {
-      price.min = 5000;
-      price.placeholder = '5000';
+      price.min = HOUSE_PRICE_MIN;
+      price.placeholder = HOUSE_PRICE_MIN;
     } else {
-      price.min = 10000;
-      price.placeholder = '10000';
+      price.min = PALACE_PRICE_MIN;
+      price.placeholder = PALACE_PRICE_MIN;
     }
   };
 
