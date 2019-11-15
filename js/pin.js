@@ -12,31 +12,36 @@
     var pinTemplate = document.querySelector('#pin').content;
     var newPinTemplate = pinTemplate.querySelector('.map__pin');
     var newPins = [];
-    for (var i = 0; i < pins.length; i++) {
-      newPins[i] = newPinTemplate.cloneNode(true);
-      newPins[i].firstChild.alt = pins[i].offer.title;
-      newPins[i].firstChild.src = pins[i].author.avatar;
-      newPins[i].style.left = (pins[i].location.x - PIN_WIDTH / 2) + 'px';
-      newPins[i].style.top = (pins[i].location.y - PIN_HEIGHT / 2) + 'px';
-    }
 
-    var activePin = '';
+    pins.forEach(function (pin, i) {
+      newPins[i] = newPinTemplate.cloneNode(true);
+      newPins[i].firstChild.alt = pin.offer.title;
+      newPins[i].firstChild.src = pin.author.avatar;
+      newPins[i].style.left = (pin.location.x - PIN_WIDTH / 2) + 'px';
+      newPins[i].style.top = (pin.location.y - PIN_HEIGHT / 2) + 'px';
+    });
+
+
+    window.pin.activePin = '';
+
     newPins.forEach(function (item, j) {
       item.addEventListener('click', function () {
-        if (activePin) {
-          activePin.classList.remove('map__pin--active');
+        if (window.pin.active) {
+          window.pin.active.classList.remove('map__pin--active');
         }
         item.classList.add('map__pin--active');
-        activePin = item;
-        window.card.removeCard();
-        window.card.renderCard(pins[j]);
+        window.pin.active = item;
+        window.card.clean();
+        window.card.render(pins[j]);
       });
+
+
     });
 
     return newPins;
   };
 
-  var renderPins = function (pins) {
+  var render = function (pins) {
     var newPins = createPins(pins);
     var mapPins = document.querySelector('.map__pins');
     var fragment = document.createDocumentFragment();
@@ -48,7 +53,7 @@
     return newPins;
   };
 
-  var removePins = function () {
+  var clean = function () {
     var mapPins = document.querySelector('.map__pins');
     var mainPin = document.querySelector('.map__pin--main');
     var mapOverlay = document.querySelector('.map__overlay');
@@ -59,7 +64,7 @@
 
 
   window.pin = {
-    renderPins: renderPins,
-    removePins: removePins
+    render: render,
+    clean: clean
   };
 })();

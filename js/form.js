@@ -3,11 +3,17 @@
 
 (function () {
 
+  var BUNGALO_PRICE_MIN = 0;
+  var FLAT_PRICE_MIN = 1000;
+  var HOUSE_PRICE_MIN = 5000;
+  var PALACE_PRICE_MIN = 10000;
+
+
   var adForm = document.querySelector('.ad-form');
   var rooms = adForm.querySelector('#room_number');
   var capacity = adForm.querySelector('#capacity');
 
-  var onCapacityCheck = function () {
+  var roomsCapacityCheck = function () {
     if (rooms.value === '1' && capacity.value !== '1') {
       capacity.setCustomValidity('Только для 1 гостя');
     } else if (rooms.value === '2' && capacity.value !== '1' && capacity.value !== '2') {
@@ -21,8 +27,12 @@
     }
   };
 
+  var onCapacityCheck = roomsCapacityCheck;
+  var onRoomsCheck = roomsCapacityCheck;
+
+
   capacity.addEventListener('input', onCapacityCheck);
-  rooms.addEventListener('input', onCapacityCheck);
+  rooms.addEventListener('input', onRoomsCheck);
 
   // Поле «Цена за ночь»
   var price = adForm.querySelector('#price');
@@ -30,23 +40,26 @@
   //   Поле «Тип жилья»
   var type = adForm.querySelector('#type');
 
-  var onPriceCheck = function () {
+  var typePriceCheck = function () {
     if (type.value === 'bungalo') {
-      price.min = 0;
-      price.placeholder = '0';
+      price.min = BUNGALO_PRICE_MIN;
+      price.placeholder = BUNGALO_PRICE_MIN;
     } else if (type.value === 'flat') {
-      price.min = 1000;
-      price.placeholder = '1000';
+      price.min = FLAT_PRICE_MIN;
+      price.placeholder = FLAT_PRICE_MIN;
     } else if (type.value === 'house') {
-      price.min = 5000;
-      price.placeholder = '5000';
+      price.min = HOUSE_PRICE_MIN;
+      price.placeholder = HOUSE_PRICE_MIN;
     } else {
-      price.min = 10000;
-      price.placeholder = '10000';
+      price.min = PALACE_PRICE_MIN;
+      price.placeholder = PALACE_PRICE_MIN;
     }
   };
+  var onTypeCheck = typePriceCheck;
+  var onPriceCheck = typePriceCheck;
 
-  type.addEventListener('input', onPriceCheck);
+
+  type.addEventListener('input', onTypeCheck);
   price.addEventListener('input', onPriceCheck);
 
   // Поля «Время заезда», «Время выезда»
@@ -61,15 +74,15 @@
     timein.value = timeout.value;
   });
 
+  var main = document.querySelector('main');
+
+  var success = document.querySelector('#success');
+  var successTemplate = success.content.querySelector('.success');
 
   var onSuccess = function () {
 
-    var successTemplate = document.querySelector('#success').content.querySelector('.success');
     var successMessage = successTemplate.cloneNode(true);
-    var main = document.querySelector('main');
-
     main.appendChild(successMessage);
-
     var onEscRemoveSuccessMessage = function (evt) {
       window.util.isEscEvent(evt, removeSuccessMessage);
     };
@@ -79,50 +92,23 @@
       document.removeEventListener('click', removeSuccessMessage);
       document.removeEventListener('keydown', onEscRemoveSuccessMessage);
       adForm.reset();
-      window.map.deactivateMap();
+      window.map.deactivate();
     };
 
     document.addEventListener('click', removeSuccessMessage);
     document.addEventListener('keydown', onEscRemoveSuccessMessage);
   };
 
-
-  var onError = function () {
-
-    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-    var errorMessage = errorTemplate.cloneNode(true);
-    var main = document.querySelector('main');
-
-    main.appendChild(errorMessage);
-
-    var removeErrorMessage = function () {
-      errorMessage.remove();
-      document.removeEventListener('click', removeErrorMessage);
-      document.removeEventListener('keydown', function (evt) {
-        window.util.isEscEvent(evt, removeErrorMessage);
-      });
-    };
-
-    document.addEventListener('click', removeErrorMessage);
-
-
-    document.addEventListener('keydown', function (evt) {
-      window.util.isEscEvent(evt, removeErrorMessage);
-    });
-
-  };
-
-
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(adForm), onSuccess, onError);
+    window.backend.save(new FormData(adForm), onSuccess, window.util.onError);
   });
 
   var reset = adForm.querySelector('.ad-form__reset');
   reset.addEventListener('click', function (evt) {
     evt.preventDefault();
     adForm.reset();
-    window.map.deactivateMap();
+    window.map.deactivate();
   });
 
 })();
