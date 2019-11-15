@@ -99,36 +99,9 @@
     document.addEventListener('keydown', onEscRemoveSuccessMessage);
   };
 
-  var error = document.querySelector('#error');
-  var errorTemplate = error.content.querySelector('.error');
-
-  var onError = function () {
-
-    var errorMessage = errorTemplate.cloneNode(true);
-
-    main.appendChild(errorMessage);
-
-    var removeErrorMessage = function () {
-      errorMessage.remove();
-      document.removeEventListener('click', removeErrorMessage);
-      document.removeEventListener('keydown', function (evt) {
-        window.util.isEscEvent(evt, removeErrorMessage);
-      });
-    };
-
-    document.addEventListener('click', removeErrorMessage);
-
-
-    document.addEventListener('keydown', function (evt) {
-      window.util.isEscEvent(evt, removeErrorMessage);
-    });
-
-  };
-
-
   adForm.addEventListener('submit', function (evt) {
     evt.preventDefault();
-    window.backend.save(new FormData(adForm), onSuccess, onError);
+    window.backend.save(new FormData(adForm), onSuccess, window.util.onError);
   });
 
   var reset = adForm.querySelector('.ad-form__reset');

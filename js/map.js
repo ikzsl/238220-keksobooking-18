@@ -55,27 +55,6 @@
     adForm.classList.remove('ad-form--disabled');
   };
 
-  var onError = function () {
-    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-    var errorMessage = errorTemplate.cloneNode(true);
-    var main = document.querySelector('main');
-
-    main.appendChild(errorMessage);
-
-    var removeErrorMessage = function () {
-      errorMessage.remove();
-      document.removeEventListener('click', removeErrorMessage);
-      document.removeEventListener('keydown', function (evt) {
-        window.util.isEscEvent(evt, removeErrorMessage);
-      });
-    };
-
-    document.addEventListener('mousedown', removeErrorMessage);
-
-    document.addEventListener('keydown', function (evt) {
-      window.util.isEscEvent(evt, removeErrorMessage);
-    });
-  };
 
   var activateStateOnEnter = function (evt) {
     window.util.isEnterEvent(evt, activateState);
@@ -89,7 +68,7 @@
       pinMain.removeEventListener('mousedown', activateState);
       pinMain.removeEventListener('keydown', activateStateOnEnter);
     };
-    window.backend.load(onSuccess, onError);
+    window.backend.load(onSuccess, window.util.onError);
   };
 
   var activateState = function () {
