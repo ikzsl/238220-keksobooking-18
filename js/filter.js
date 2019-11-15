@@ -43,7 +43,7 @@
       return (typeOf && roomsOf && guestsOf && priceOf && featureOf);
     });
 
-    window.card.clean();
+    window.card.onChangeRemoveActive();
     window.pin.clean();
     window.pin.render(filteredNotices);
   };

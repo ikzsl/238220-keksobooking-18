@@ -31,7 +31,7 @@
         }
         item.classList.add('map__pin--active');
         window.pin.active = item;
-        window.card.clean();
+        window.card.onChangeRemoveActive();
         window.card.render(pins[j]);
       });
 
