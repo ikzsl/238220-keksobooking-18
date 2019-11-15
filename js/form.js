@@ -13,7 +13,7 @@
   var rooms = adForm.querySelector('#room_number');
   var capacity = adForm.querySelector('#capacity');
 
-  var onCapacityCheck = function () {
+  var roomsCapacityCheck = function () {
     if (rooms.value === '1' && capacity.value !== '1') {
       capacity.setCustomValidity('Только для 1 гостя');
     } else if (rooms.value === '2' && capacity.value !== '1' && capacity.value !== '2') {
@@ -27,8 +27,12 @@
     }
   };
 
+  var onCapacityCheck = roomsCapacityCheck;
+  var onRoomsCheck = roomsCapacityCheck;
+
+
   capacity.addEventListener('input', onCapacityCheck);
-  rooms.addEventListener('input', onCapacityCheck);
+  rooms.addEventListener('input', onRoomsCheck);
 
   // Поле «Цена за ночь»
   var price = adForm.querySelector('#price');
@@ -36,7 +40,7 @@
   //   Поле «Тип жилья»
   var type = adForm.querySelector('#type');
 
-  var onPriceCheck = function () {
+  var typePriceCheck = function () {
     if (type.value === 'bungalo') {
       price.min = BUNGALO_PRICE_MIN;
       price.placeholder = BUNGALO_PRICE_MIN;
@@ -51,8 +55,11 @@
       price.placeholder = PALACE_PRICE_MIN;
     }
   };
+  var onTypeCheck = typePriceCheck;
+  var onPriceCheck = typePriceCheck;
 
-  type.addEventListener('input', onPriceCheck);
+
+  type.addEventListener('input', onTypeCheck);
   price.addEventListener('input', onPriceCheck);
 
   // Поля «Время заезда», «Время выезда»
