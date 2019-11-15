@@ -108,7 +108,7 @@
         photos.appendChild(photoCard);
       });
     } else {
-      photos.style.display = 'none';
+      photos.remove();
     }
 
     var popupAvatar = newCard.querySelector('.popup__avatar');
