@@ -53,13 +53,22 @@
     return newPins;
   };
 
+  // var clean = function () {
+  //   var mapPins = document.querySelector('.map__pins');
+  //   var mainPin = document.querySelector('.map__pin--main');
+  //   var mapOverlay = document.querySelector('.map__overlay');
+  //   mapPins.innerHTML = '';
+  //   mapPins.appendChild(mapOverlay);
+  //   mapPins.appendChild(mainPin);
+  // };
+
   var clean = function () {
     var mapPins = document.querySelector('.map__pins');
-    var mainPin = document.querySelector('.map__pin--main');
-    var mapOverlay = document.querySelector('.map__overlay');
-    mapPins.innerHTML = '';
-    mapPins.appendChild(mapOverlay);
-    mapPins.appendChild(mainPin);
+
+    while (document.querySelector('.map__pin:not(.map__pin--main)')) {
+      var mapPin = document.querySelector('.map__pin:not(.map__pin--main)');
+      mapPins.removeChild(mapPin);
+    }
   };
 
 
