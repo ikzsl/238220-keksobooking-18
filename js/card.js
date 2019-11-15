@@ -34,14 +34,14 @@
     if (card.offer.title) {
       popupTitle.textContent = card.offer.title;
     } else {
-      popupTitle.hidden = true;
+      popupTitle.remove();
     }
 
     var popupAddress = newCard.querySelector('.popup__text--address');
     if (card.offer.address) {
       popupAddress.textContent = card.offer.address;
     } else {
-      popupAddress.hidden = true;
+      popupAddress.remove();
     }
 
 
@@ -50,14 +50,14 @@
       popupPrice.textContent = card.offer.price + '₽/ночь';
 
     } else {
-      popupPrice.hidden = true;
+      popupPrice.remove();
     }
 
     var popupType = newCard.querySelector('.popup__type');
     if (card.offer.type) {
       popupType.textContent = types[card.offer.type];
     } else {
-      popupType.hidden = true;
+      popupType.remove();
     }
 
 
@@ -66,7 +66,7 @@
       popupCapacity.textContent = (card.offer.rooms)
         ? card.offer.rooms + getWordOfRoomsCount(card.offer.rooms) + ' для ' + card.offer.guests + getWordOfGuestsCount(card.offer.guests) : '';
     } else {
-      popupCapacity.hidden = true;
+      popupCapacity.remove();
     }
 
     var popupTime = newCard.querySelector('.popup__text--time');
@@ -74,7 +74,7 @@
       popupTime.textContent = (card.offer.checkin !== '0:00')
         ? 'Заезд после ' + card.offer.checkin + ', выезд до ' + card.offer.checkout : '';
     } else {
-      popupTime.hidden = true;
+      popupTime.remove();
     }
 
 
@@ -87,14 +87,14 @@
         featureItems.appendChild(featureItem);
       });
     } else {
-      featureItems.hidden = true;
+      featureItems.remove();
     }
 
     var popupDescription = newCard.querySelector('.popup__description');
     if (card.offer.description) {
       popupDescription.textContent = card.offer.description;
     } else {
-      popupDescription.hidden = true;
+      popupDescription.remove();
     }
 
 
@@ -115,7 +115,7 @@
     if (card.author.avatar) {
       popupAvatar.src = card.author.avatar;
     } else {
-      popupAvatar.hidden = true;
+      popupAvatar.remove();
     }
 
 
