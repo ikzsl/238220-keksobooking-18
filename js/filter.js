@@ -13,10 +13,8 @@
     var features = Array.from(filters.querySelectorAll('#housing-features input:checked'));
 
     // фильтр по удобствам
-    var featuresOn = [];
-
-    features.forEach(function (item, i) {
-      featuresOn[i] = item.value;
+    var featuresOn = features.map(function (item) {
+      return item.value;
     });
 
     var compareArr = [];

@@ -30,7 +30,7 @@
   // Удаляет аттрибут disabled у элементов массива
   var enableFields = function (array) {
     array.forEach(function (field) {
-      field.removeAttribute('disabled', 'disabled');
+      field.removeAttribute('disabled');
     });
   };
 
