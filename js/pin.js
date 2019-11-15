@@ -12,13 +12,15 @@
     var pinTemplate = document.querySelector('#pin').content;
     var newPinTemplate = pinTemplate.querySelector('.map__pin');
     var newPins = [];
-    for (var i = 0; i < pins.length; i++) {
+
+    pins.forEach(function (pin, i) {
       newPins[i] = newPinTemplate.cloneNode(true);
-      newPins[i].firstChild.alt = pins[i].offer.title;
-      newPins[i].firstChild.src = pins[i].author.avatar;
-      newPins[i].style.left = (pins[i].location.x - PIN_WIDTH / 2) + 'px';
-      newPins[i].style.top = (pins[i].location.y - PIN_HEIGHT / 2) + 'px';
-    }
+      newPins[i].firstChild.alt = pin.offer.title;
+      newPins[i].firstChild.src = pin.author.avatar;
+      newPins[i].style.left = (pin.location.x - PIN_WIDTH / 2) + 'px';
+      newPins[i].style.top = (pin.location.y - PIN_HEIGHT / 2) + 'px';
+    });
+
 
     window.pin.activePin = '';
 
