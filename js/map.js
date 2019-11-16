@@ -7,10 +7,13 @@
   var MAIN_PIN_WIDTH = 65;
   var ACTIVE_MAIN_PIN_HEIGHT = 75;
   var ACTIVE_MAIN_PIN_WIDTH = 65;
-  var TOP_MAP_BORDER = 130;
-  var BOTTOM_MAP_BORDER = 630;
-  var LEFT_MAP_BORDER = 0;
-  var RIGHT_MAP_BORDER = 1200;
+  var MAP_BORDER = {
+    top: 130,
+    right: 1200,
+    bottom: 630,
+    left: 0
+  };
+
   var START_PIN = {
     x: 570,
     y: 375
@@ -39,7 +42,6 @@
   var adFormFieldsets = adForm.querySelectorAll('fieldset');
   disableFields(adFormFieldsets);
 
-
   // Выключает элементы фильтра объявлений
   var mapFilters = document.querySelector('.map__filters');
   var mapFilterFieldsets = mapFilters.querySelectorAll('fieldset');
@@ -50,11 +52,8 @@
   var activateMap = function () {
     map.classList.remove('map--faded');
     enableFields(adFormFieldsets);
-    enableFields(mapFilterFieldsets);
-    enableFields(mapFilterSelects);
     adForm.classList.remove('ad-form--disabled');
   };
-
 
   var activateStateOnEnter = function (evt) {
     window.util.isEnterEvent(evt, activateState);
@@ -67,6 +66,8 @@
       window.pin.render(window.filter.filteredNotices);
       pinMain.removeEventListener('mousedown', activateState);
       pinMain.removeEventListener('keydown', activateStateOnEnter);
+      enableFields(mapFilterFieldsets);
+      enableFields(mapFilterSelects);
     };
     window.backend.load(onSuccess, window.util.onError);
   };
@@ -87,6 +88,7 @@
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
+
       var shift = {
         x: startCoords.x - moveEvt.clientX,
         y: startCoords.y - moveEvt.clientY
@@ -97,24 +99,21 @@
         y: moveEvt.clientY
       };
 
-
-      if (pinMain.offsetTop < TOP_MAP_BORDER - ACTIVE_MAIN_PIN_HEIGHT) {
-        shift.y = -1;
-      } else if (pinMain.offsetTop > BOTTOM_MAP_BORDER - ACTIVE_MAIN_PIN_HEIGHT) {
-        shift.y = 1;
-      } else if (pinMain.offsetLeft < LEFT_MAP_BORDER - ACTIVE_MAIN_PIN_WIDTH / 2) {
-        shift.x = -1;
-      } else if (pinMain.offsetLeft > RIGHT_MAP_BORDER - ACTIVE_MAIN_PIN_WIDTH / 2) {
-        shift.x = 1;
+      if (pinMain.offsetLeft - shift.x >= MAP_BORDER.left - ACTIVE_MAIN_PIN_WIDTH / 2 &&
+        pinMain.offsetLeft - shift.x <= MAP_BORDER.right - ACTIVE_MAIN_PIN_WIDTH / 2) {
+        pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
       }
 
-      pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
-      pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
+      if (pinMain.offsetTop - shift.y >= MAP_BORDER.top - ACTIVE_MAIN_PIN_HEIGHT &&
+        pinMain.offsetTop - shift.y <= MAP_BORDER.bottom - ACTIVE_MAIN_PIN_HEIGHT) {
+        pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
+      }
 
       setAddress();
     };
 
     var onMouseUp = function () {
+
       map.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
@@ -140,8 +139,9 @@
     disableFields(adFormFieldsets);
     disableFields(mapFilterFieldsets);
     disableFields(mapFilterSelects);
-    window.card.onChangeRemoveActive();
-    window.pin.onChangeRemoveActive();
+    window.card.close();
+    window.pin.clean();
+    window.avatar.clean();
     pinMain.style.left = START_PIN.x + 'px';
     pinMain.style.top = START_PIN.y + 'px';
 

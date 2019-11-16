@@ -31,7 +31,7 @@
         }
         item.classList.add('map__pin--active');
         window.pin.active = item;
-        window.card.onChangeRemoveActive();
+        window.card.close();
         window.card.render(pins[j]);
       });
 
@@ -54,11 +54,10 @@
 
   var clean = function () {
     var mapPins = document.querySelector('.map__pins');
-
-    while (document.querySelector('.map__pin:not(.map__pin--main)')) {
-      var mapPin = document.querySelector('.map__pin:not(.map__pin--main)');
-      mapPins.removeChild(mapPin);
-    }
+    var pinsToRemove = Array.from(mapPins.querySelectorAll('.map__pin:not(.map__pin--main)'));
+    pinsToRemove.forEach(function (item) {
+      mapPins.removeChild(item);
+    });
   };
 
   window.pin = {
