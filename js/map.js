@@ -4,9 +4,9 @@
 (function () {
 
   var MAIN_PIN_HEIGHT = 65;
-  var MAIN_PIN_WIDTH = 65;
+  var MAIN_PIN_WIDTH = 64;
   var ACTIVE_MAIN_PIN_HEIGHT = 75;
-  var ACTIVE_MAIN_PIN_WIDTH = 65;
+  var ACTIVE_MAIN_PIN_WIDTH = 64;
   var TOP_MAP_BORDER = 130;
   var BOTTOM_MAP_BORDER = 630;
   var LEFT_MAP_BORDER = 0;
@@ -39,7 +39,6 @@
   var adFormFieldsets = adForm.querySelectorAll('fieldset');
   disableFields(adFormFieldsets);
 
-
   // Выключает элементы фильтра объявлений
   var mapFilters = document.querySelector('.map__filters');
   var mapFilterFieldsets = mapFilters.querySelectorAll('fieldset');
@@ -54,7 +53,6 @@
     enableFields(mapFilterSelects);
     adForm.classList.remove('ad-form--disabled');
   };
-
 
   var activateStateOnEnter = function (evt) {
     window.util.isEnterEvent(evt, activateState);
@@ -87,6 +85,7 @@
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
+
       var shift = {
         x: startCoords.x - moveEvt.clientX,
         y: startCoords.y - moveEvt.clientY
@@ -97,24 +96,21 @@
         y: moveEvt.clientY
       };
 
-
-      if (pinMain.offsetTop < TOP_MAP_BORDER - ACTIVE_MAIN_PIN_HEIGHT) {
-        shift.y = -1;
-      } else if (pinMain.offsetTop > BOTTOM_MAP_BORDER - ACTIVE_MAIN_PIN_HEIGHT) {
-        shift.y = 1;
-      } else if (pinMain.offsetLeft < LEFT_MAP_BORDER - ACTIVE_MAIN_PIN_WIDTH / 2) {
-        shift.x = -1;
-      } else if (pinMain.offsetLeft > RIGHT_MAP_BORDER - ACTIVE_MAIN_PIN_WIDTH / 2) {
-        shift.x = 1;
+      if ((pinMain.offsetLeft - shift.x) >= LEFT_MAP_BORDER - ACTIVE_MAIN_PIN_WIDTH / 2 &&
+        (pinMain.offsetLeft - shift.x) <= RIGHT_MAP_BORDER - ACTIVE_MAIN_PIN_WIDTH / 2) {
+        pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
       }
 
-      pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
-      pinMain.style.left = (pinMain.offsetLeft - shift.x) + 'px';
+      if ((pinMain.offsetTop - shift.y) >= TOP_MAP_BORDER - ACTIVE_MAIN_PIN_HEIGHT &&
+        (pinMain.offsetTop - shift.y) <= BOTTOM_MAP_BORDER - ACTIVE_MAIN_PIN_HEIGHT) {
+        pinMain.style.top = (pinMain.offsetTop - shift.y) + 'px';
+      }
 
       setAddress();
     };
 
     var onMouseUp = function () {
+
       map.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
