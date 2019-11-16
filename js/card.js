@@ -160,7 +160,7 @@
 
   window.card = {
     render: render,
-    onChangeRemoveActive: onMainPinClick
+    close: onMainPinClick
   };
 
 })();

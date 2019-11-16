@@ -139,8 +139,8 @@
     disableFields(adFormFieldsets);
     disableFields(mapFilterFieldsets);
     disableFields(mapFilterSelects);
-    window.card.onChangeRemoveActive();
-    window.pin.onChangeRemoveActive();
+    window.card.close();
+    window.pin.clean();
     pinMain.style.left = START_PIN.x + 'px';
     pinMain.style.top = START_PIN.y + 'px';
 
