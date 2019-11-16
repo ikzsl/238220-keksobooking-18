@@ -52,8 +52,6 @@
   var activateMap = function () {
     map.classList.remove('map--faded');
     enableFields(adFormFieldsets);
-    enableFields(mapFilterFieldsets);
-    enableFields(mapFilterSelects);
     adForm.classList.remove('ad-form--disabled');
   };
 
@@ -68,6 +66,8 @@
       window.pin.render(window.filter.filteredNotices);
       pinMain.removeEventListener('mousedown', activateState);
       pinMain.removeEventListener('keydown', activateStateOnEnter);
+      enableFields(mapFilterFieldsets);
+      enableFields(mapFilterSelects);
     };
     window.backend.load(onSuccess, window.util.onError);
   };
