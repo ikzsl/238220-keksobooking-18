@@ -24,17 +24,16 @@
   window.util.onError = function () {
     var errorMessage = errorTemplate.cloneNode(true);
     main.appendChild(errorMessage);
+    var onEscRemoveErrorMessage = function (evt) {
+      window.util.isEscEvent(evt, removeErrorMessage);
+    };
     var removeErrorMessage = function () {
       errorMessage.remove();
       document.removeEventListener('click', removeErrorMessage);
-      document.removeEventListener('keydown', function (evt) {
-        window.util.isEscEvent(evt, removeErrorMessage);
-      });
+      document.removeEventListener('keydown', onEscRemoveErrorMessage);
     };
     document.addEventListener('click', removeErrorMessage);
-    document.addEventListener('keydown', function (evt) {
-      window.util.isEscEvent(evt, removeErrorMessage);
-    });
+    document.addEventListener('keydown', onEscRemoveErrorMessage);
 
   };
 })();
