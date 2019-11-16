@@ -109,6 +109,7 @@
     evt.preventDefault();
     adForm.reset();
     window.map.deactivate();
+    window.avatar.clean();
   });
 
 })();

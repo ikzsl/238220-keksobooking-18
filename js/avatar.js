@@ -19,7 +19,6 @@
 
   attachImageLoadHandler(avatarFileChooser, avatarPreview);
 
-
   var photoFileChooser = document.querySelector('.ad-form__upload input[type=file]');
   var imageContainer = document.createElement('img');
 
@@ -29,4 +28,11 @@
   photoPreview.height = 70;
 
   attachImageLoadHandler(photoFileChooser, photoPreview);
+
+  window.avatar.clean = function () {
+    avatarPreview.src = 'img/muffin-grey.svg';
+    photoPreview.src = '';
+  };
+
+
 })();

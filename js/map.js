@@ -141,6 +141,7 @@
     disableFields(mapFilterSelects);
     window.card.close();
     window.pin.clean();
+    window.avatar.clean();
     pinMain.style.left = START_PIN.x + 'px';
     pinMain.style.top = START_PIN.y + 'px';
 
