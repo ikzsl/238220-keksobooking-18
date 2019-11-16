@@ -16,4 +16,25 @@
       }
     }
   };
+
+  var error = document.querySelector('#error');
+  var errorTemplate = error.content.querySelector('.error');
+  var main = document.querySelector('main');
+
+  window.util.onError = function () {
+    var errorMessage = errorTemplate.cloneNode(true);
+    main.appendChild(errorMessage);
+    var removeErrorMessage = function () {
+      errorMessage.remove();
+      document.removeEventListener('click', removeErrorMessage);
+      document.removeEventListener('keydown', function (evt) {
+        window.util.isEscEvent(evt, removeErrorMessage);
+      });
+    };
+    document.addEventListener('click', removeErrorMessage);
+    document.addEventListener('keydown', function (evt) {
+      window.util.isEscEvent(evt, removeErrorMessage);
+    });
+
+  };
 })();

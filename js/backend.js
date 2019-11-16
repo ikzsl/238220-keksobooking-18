@@ -16,7 +16,7 @@
     });
   };
 
-  var onLoadError = function (xhr, onError) {
+  var onErrorLoad = function (xhr, onError) {
     xhr.addEventListener('error', function () {
       onError('Произошла ошибка соединения');
     });
@@ -34,7 +34,7 @@
       xhr.timeout = TIMEOUT;
 
       onDataLoad(xhr, onLoad, onError);
-      onLoadError(xhr, onError);
+      onErrorLoad(xhr, onError);
 
       xhr.open('GET', BASE_URL + '/data');
       xhr.send();
@@ -46,7 +46,7 @@
       xhr.timeout = TIMEOUT;
 
       onDataLoad(xhr, onLoad, onError);
-      onLoadError(xhr, onError);
+      onErrorLoad(xhr, onError);
 
       xhr.open('POST', BASE_URL);
       xhr.send(data);
